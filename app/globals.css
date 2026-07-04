@@ -1,26 +1,415 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Bold Editorial Portfolio
+   Inspired by StartupPerks aesthetic
+   ═══════════════════════════════════════════ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --bg-primary: #FBF6E9;
+  --bg-secondary: #F5EDD6;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FFF9E6;
+  --bg-yellow: #FFD700;
+  --bg-yellow-hover: #FFC200;
+  --bg-pink: #FF4D8D;
+  --bg-pink-hover: #FF3377;
+
+  /* Text */
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-muted: #7A7A7A;
+
+  /* Accents */
+  --accent-yellow: #FFD700;
+  --accent-pink: #FF4D8D;
+  --accent-blue: #A8C8E8;
+  --accent-lavender: #C4B5E0;
+
+  /* Borders */
+  --border-dark: #1A1A1A;
+  --border-light: rgba(26, 26, 26, 0.1);
+  --border-medium: rgba(26, 26, 26, 0.2);
+
+  /* Shadows */
+  --shadow-brutal: 4px 4px 0px #1A1A1A;
+  --shadow-brutal-sm: 3px 3px 0px #1A1A1A;
+  --shadow-brutal-lg: 6px 6px 0px #1A1A1A;
+  --shadow-brutal-hover: 6px 6px 0px #1A1A1A;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --ease-snappy: cubic-bezier(0.23, 1, 0.32, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 600ms;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --color-accent: var(--accent-yellow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ═══════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+  position: relative;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Bold Selection */
+::selection {
+  background: var(--accent-yellow);
+  color: var(--text-primary);
+}
+
+/* Display Font */
+.font-display {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* ═══════════════════════════════════════════
+   CUSTOM SCROLLBAR
+   ═══════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════
+   HIGHLIGHT BOX — Yellow marker effect
+   ═══════════════════════════════════════════ */
+
+.highlight-box {
+  display: inline-block;
+  background: var(--accent-yellow);
+  padding: 4px 16px;
+  border: 3px solid var(--text-primary);
+  box-shadow: var(--shadow-brutal-sm);
+  transform: rotate(-1deg);
+  transition: transform var(--duration-fast) var(--ease-snappy);
+}
+
+.highlight-box:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+/* ═══════════════════════════════════════════
+   CARD STYLES — Bold bordered cards
+   ═══════════════════════════════════════════ */
+
+.card-brutal {
+  background: var(--bg-card);
+  border: 3px solid var(--text-primary);
+  box-shadow: var(--shadow-brutal);
+  transition: all var(--duration-normal) var(--ease-snappy);
+}
+
+.card-brutal:hover {
+  box-shadow: var(--shadow-brutal-hover);
+  transform: translate(-2px, -2px);
+}
+
+/* ═══════════════════════════════════════════
+   BUTTON STYLES
+   ═══════════════════════════════════════════ */
+
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: var(--accent-yellow);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 3px solid var(--text-primary);
+  box-shadow: var(--shadow-brutal-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-snappy);
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-brutal-lg);
+}
+
+.btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--text-primary);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: var(--bg-pink);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 3px solid var(--text-primary);
+  box-shadow: var(--shadow-brutal-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-snappy);
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-brutal-lg);
+}
+
+.btn-secondary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--text-primary);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 3px solid var(--text-primary);
+  box-shadow: var(--shadow-brutal-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-snappy);
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-brutal-lg);
+}
+
+/* ═══════════════════════════════════════════
+   BADGE / PILL — Bold bordered pill
+   ═══════════════════════════════════════════ */
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--bg-card);
+  border: 2px solid var(--text-primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION LABEL
+   ═══════════════════════════════════════════ */
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.section-label::before {
+  content: '✦';
+  font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════
+   FLOATING GEOMETRIC SHAPES
+   ═══════════════════════════════════════════ */
+
+@keyframes float-gentle {
+  0%, 100% { transform: translate(0, 0) rotate(var(--rotation, 0deg)); }
+  25% { transform: translate(15px, -20px) rotate(calc(var(--rotation, 0deg) + 5deg)); }
+  50% { transform: translate(-10px, 15px) rotate(calc(var(--rotation, 0deg) - 3deg)); }
+  75% { transform: translate(12px, 8px) rotate(calc(var(--rotation, 0deg) + 2deg)); }
+}
+
+@keyframes float-drift {
+  0%, 100% { transform: translate(0, 0) rotate(var(--rotation, 0deg)); }
+  33% { transform: translate(-20px, 15px) rotate(calc(var(--rotation, 0deg) - 5deg)); }
+  66% { transform: translate(15px, -10px) rotate(calc(var(--rotation, 0deg) + 4deg)); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.shape-float {
+  animation: float-gentle 18s ease-in-out infinite;
+}
+
+.shape-drift {
+  animation: float-drift 22s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE CONTAINER
+   ═══════════════════════════════════════════ */
+
+.container-premium {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .container-premium {
+    padding: 0 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-premium {
+    padding: 0 48px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   DIVIDERS
+   ═══════════════════════════════════════════ */
+
+.divider-bold {
+  height: 3px;
+  background: var(--text-primary);
+  border: none;
+  margin: 0;
+}
+
+.divider-dashed {
+  height: 0;
+  border: none;
+  border-top: 3px dashed var(--border-medium);
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════
+   TAG / CHIP
+   ═══════════════════════════════════════════ */
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: var(--bg-primary);
+  border: 2px solid var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all var(--duration-fast) var(--ease-snappy);
+  cursor: default;
+}
+
+.tag-chip:hover {
+  background: var(--accent-yellow);
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0px var(--text-primary);
+}
+
+/* ═══════════════════════════════════════════
+   UNDERLINE DECORATION
+   ═══════════════════════════════════════════ */
+
+.underline-yellow {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+  z-index: 1;
+}
+
+.underline-yellow::after {
+  content: '';
+  position: absolute;
+  width: 104%;
+  height: 40%;
+  bottom: 4px;
+  left: -2%;
+  background-color: var(--accent-yellow);
+  z-index: -1;
+  transform: rotate(-1deg);
+  transition: all var(--duration-fast) var(--ease-snappy);
+}
+
+.underline-yellow:hover::after {
+  height: 100%;
+  bottom: 0;
+  transform: rotate(0deg);
+}
+
+/* ═══════════════════════════════════════════
+   MARQUEE
+   ═══════════════════════════════════════════ */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
 }
