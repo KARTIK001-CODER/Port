@@ -6,14 +6,44 @@ import { motion } from 'framer-motion';
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    if (!formData.name || !formData.email || !formData.message) return;
+    
+    setStatus('loading');
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "YOUR_WEB3FORMS_KEY_HERE",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 5000);
+      }
+    } catch (error) {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
 
   const socials = [
@@ -168,14 +198,22 @@ export default function Contact() {
                 {/* Submit button */}
                 <motion.button
                   type="submit"
-                  whileTap={{ scale: 0.98 }}
+                  disabled={status === 'loading'}
+                  whileTap={{ scale: status === 'loading' ? 1 : 0.98 }}
                   suppressHydrationWarning
-                  className="btn-primary w-full !py-4 !text-[15px] !font-black mt-2"
+                  className={`btn-primary w-full !py-4 !text-[15px] !font-black mt-2 ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''} ${status === 'success' ? '!bg-green-500' : ''} ${status === 'error' ? '!bg-red-500 text-white' : ''}`}
                 >
-                  <span>Send Message</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                  </svg>
+                  <span>
+                    {status === 'loading' ? 'Sending...' : 
+                     status === 'success' ? 'Message Sent! 🎉' : 
+                     status === 'error' ? 'Failed to Send' : 
+                     'Send Message'}
+                  </span>
+                  {status === 'idle' && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                    </svg>
+                  )}
                 </motion.button>
               </form>
             </div>
