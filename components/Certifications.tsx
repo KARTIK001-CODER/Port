@@ -35,6 +35,13 @@ const certifications: Certification[] = [
     org: 'Google / Coursera',
     link: 'https://www.credly.com/badges/9d211fa3-d570-449b-8aa8-7c93fb44a644/public_url',
     image: 'https://images.credly.com/images/ea3eec65-ddad-4242-9c59-1defac0fa2d9/twitter_thumb_201604_image.png'
+  },
+  {
+    title: 'Copado AI Fundamentals',
+    year: '2026',
+    org: 'Copado',
+    image: '/copado-ai.png',
+    link: 'https://drive.google.com/file/d/1VEWMcXsic9QC8f_DxXB-riQhTRp0hg8d/view'
   }
 ];
 

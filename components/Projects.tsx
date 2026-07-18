@@ -5,44 +5,28 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 const projects = [
   {
-    title: "E-Commerce Engine",
-    category: "Backend Architecture",
-    description: "High-performance backend powering concurrent transactions with extreme scale, low latency, and bulletproof reliability for modern commerce.",
-    tech: ["Node.js", "Redis", "Express", "MongoDB"],
-    github: "#",
-    demo: "#",
-    accentColor: "#FFD700",
-    emoji: "🛒",
+    title: "LinkForge",
+    category: "Smart Link Management SaaS",
+    description: "Production-ready Smart Link Management SaaS with 42+ REST APIs for intelligent URL redirection and real-time analytics. Architected an event-driven analytics pipeline using Redis and BullMQ, reducing URL redirect latency by 30% and backend processing time by 35%.",
+    tech: ["Redis", "BullMQ", "React.js", "Node.js", "PostgreSQL", "Prisma", "Docker"],
+    github: "https://github.com/KARTIK001-CODER/LinkForge",
+    demo: "https://link-forge-frontend-blue.vercel.app/",
+    accentColor: "#3B82F6",
+    emoji: "🚀",
+    image: "/linkforge-ss.png",
+    metrics: ["↓ 30% Latency", "42+ REST APIs"],
   },
   {
-    title: "Social Graph API",
-    category: "Data Modeling",
-    description: "Graph-based data modeling for social relationships with optimized query times, complex data traversal, and real-time updates.",
-    tech: ["MongoDB", "GraphQL", "Node.js", "WebSocket"],
-    github: "#",
-    demo: "#",
-    accentColor: "#FF4D8D",
-    emoji: "🔗",
-  },
-  {
-    title: "Markdown Master",
-    category: "Frontend Application",
-    description: "Real-time Markdown editor with instant preview, syntax highlighting, theme customization, and a fluid, distraction-free writing experience.",
-    tech: ["React", "Framer Motion", "TailwindCSS", "TypeScript"],
-    github: "#",
-    demo: "#",
-    accentColor: "#A8C8E8",
-    emoji: "✏️",
-  },
-  {
-    title: "Pathfinder Visualizer",
-    category: "Algorithms & Visualization",
-    description: "Interactive visualization of Dijkstra's and A* pathfinding algorithms with clean design, step-by-step animation, and intuitive controls.",
-    tech: ["TypeScript", "Canvas API", "Algorithms", "React"],
-    github: "#",
-    demo: "#",
-    accentColor: "#C4B5E0",
-    emoji: "🧭",
+    title: "Learning Management System",
+    category: "AI-assisted LMS",
+    description: "AI-assisted Learning Management System with role-based portals and 20+ REST APIs. Developed a unified platform for educators and students, reducing API response time by 25% and improving course management efficiency by 30% through optimized MongoDB queries and scalable architecture.",
+    tech: ["MongoDB", "TypeScript", "React.js", "Node.js", "Tailwind CSS"],
+    github: "https://github.com/kalviumcommunity/S64_Kartik_Capstone_LMS",
+    demo: "https://s64-kartik-capstone-lms.vercel.app/",
+    accentColor: "#10B981",
+    emoji: "🎓",
+    image: "/lms-ss.png",
+    metrics: ["↓ 25% Response Time", "↑ 30% Efficiency"],
   }
 ];
 
@@ -85,34 +69,42 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
           {/* Center content */}
           <div className="absolute inset-0 flex items-center justify-center">
-            {/* Large emoji */}
-            <div
-              className="w-24 h-24 border-3 border-[#1A1A1A] flex items-center justify-center bg-white"
-              style={{
-                boxShadow: '4px 4px 0px #1A1A1A',
-                transform: `rotate(${index % 2 === 0 ? '-3' : '3'}deg)`,
-              }}
-            >
-              <span className="text-4xl">{project.emoji}</span>
-            </div>
+            {'image' in project && project.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img 
+                src={project.image} 
+                alt={project.title} 
+                className="w-[88%] h-[82%] object-cover object-top border-3 border-[#1A1A1A] shadow-[6px_6px_0px_rgba(26,26,26,0.2)] transition-transform duration-500 group-hover:scale-105 group-hover:shadow-[8px_8px_0px_rgba(26,26,26,0.3)] bg-white" 
+              />
+            ) : (
+              <div
+                className="w-24 h-24 border-3 border-[#1A1A1A] flex items-center justify-center bg-white"
+                style={{
+                  boxShadow: '4px 4px 0px #1A1A1A',
+                  transform: `rotate(${index % 2 === 0 ? '-3' : '3'}deg)`,
+                }}
+              >
+                <span className="text-4xl">{project.emoji}</span>
+              </div>
+            )}
           </div>
 
-          {/* Floating tech pills */}
+          {/* Floating metrics pills */}
           <motion.div
-            className="absolute top-[15%] right-[10%] px-3 py-1.5 bg-white border-2 border-[#1A1A1A] text-[11px] font-bold text-[#1A1A1A]"
+            className="absolute top-[12%] right-[8%] px-3 py-1.5 bg-white border-2 border-[#1A1A1A] text-[11px] font-bold tracking-wider text-[#1A1A1A] z-10"
             style={{ boxShadow: '2px 2px 0px #1A1A1A' }}
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           >
-            {project.tech[0]}
+            {'metrics' in project ? project.metrics[0] : project.tech[0]}
           </motion.div>
           <motion.div
-            className="absolute bottom-[20%] left-[8%] px-3 py-1.5 bg-white border-2 border-[#1A1A1A] text-[11px] font-bold text-[#1A1A1A]"
-            style={{ boxShadow: '2px 2px 0px #1A1A1A' }}
+            className="absolute bottom-[15%] left-[5%] px-3 py-1.5 bg-[#1A1A1A] border-2 border-[#1A1A1A] text-[11px] font-bold tracking-wider text-white z-10"
+            style={{ boxShadow: '2px 2px 0px rgba(0,0,0,0.3)' }}
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
           >
-            {project.tech[1]}
+            {'metrics' in project ? project.metrics[1] : project.tech[1]}
           </motion.div>
         </div>
       </div>
