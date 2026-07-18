@@ -109,7 +109,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           >
-            {'metrics' in project ? project.metrics[0] : project.tech[0]}
+            {project.metrics ? project.metrics[0] : project.tech[0]}
           </motion.div>
           <motion.div
             className="absolute bottom-[15%] left-[5%] px-3 py-1.5 bg-[#1A1A1A] border-2 border-[#1A1A1A] text-[11px] font-bold tracking-wider text-white z-10"
@@ -117,7 +117,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
           >
-            {'metrics' in project ? project.metrics[1] : project.tech[1]}
+            {project.metrics ? project.metrics[1] : project.tech[1]}
           </motion.div>
         </div>
       </div>
