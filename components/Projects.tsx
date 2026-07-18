@@ -3,7 +3,20 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-const projects = [
+type Project = {
+  title: string;
+  category: string;
+  description: string;
+  tech: string[];
+  github: string;
+  demo: string;
+  accentColor: string;
+  emoji?: string;
+  image?: string;
+  metrics?: string[];
+};
+
+const projects: Project[] = [
   {
     title: "LinkForge",
     category: "Smart Link Management SaaS",
